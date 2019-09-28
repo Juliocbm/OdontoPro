@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OdontoProModelStoreContainer" CdmEntityContainer="OdontoProEntities">
+    <EntitySetMapping Name="nota_evolucion">
+      <EntityTypeMapping TypeName="OdontoProModel.nota_evolucion">
+        <MappingFragment StoreEntitySet="nota_evolucion">
+          <ScalarProperty Name="nota_evolucion_id" ColumnName="nota_evolucion_id" />
+          <ScalarProperty Name="nota" ColumnName="nota" />
+          <ScalarProperty Name="fecha_evolucion" ColumnName="fecha_evolucion" />
+          <ScalarProperty Name="tratamiento_id" ColumnName="tratamiento_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="paciente">
+      <EntityTypeMapping TypeName="OdontoProModel.paciente">
+        <MappingFragment StoreEntitySet="paciente">
+          <ScalarProperty Name="paciente_id" ColumnName="paciente_id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+          <ScalarProperty Name="fecha_nac" ColumnName="fecha_nac" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="edad" ColumnName="edad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="reservacion">
+      <EntityTypeMapping TypeName="OdontoProModel.reservacion">
+        <MappingFragment StoreEntitySet="reservacion">
+          <ScalarProperty Name="reservacion_id" ColumnName="reservacion_id" />
+          <ScalarProperty Name="fecha_reservacion" ColumnName="fecha_reservacion" />
+          <ScalarProperty Name="paciente_id" ColumnName="paciente_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="OdontoProModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tratamiento">
+      <EntityTypeMapping TypeName="OdontoProModel.tratamiento">
+        <MappingFragment StoreEntitySet="tratamiento">
+          <ScalarProperty Name="tratamiento_id" ColumnName="tratamiento_id" />
+          <ScalarProperty Name="diagnostico" ColumnName="diagnostico" />
+          <ScalarProperty Name="tratamiento1" ColumnName="tratamiento" />
+          <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+          <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+          <ScalarProperty Name="paciente_id" ColumnName="paciente_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="insertar_nota_evolucion" FunctionName="OdontoProModel.Store.insertar_nota_evolucion" />
+    <FunctionImportMapping FunctionImportName="insertar_paciente" FunctionName="OdontoProModel.Store.insertar_paciente" />
+    <FunctionImportMapping FunctionImportName="insertar_reservacion" FunctionName="OdontoProModel.Store.insertar_reservacion" />
+    <FunctionImportMapping FunctionImportName="insertar_tratamiento" FunctionName="OdontoProModel.Store.insertar_tratamiento" />
+    <FunctionImportMapping FunctionImportName="mostrar_notas_evolucion" FunctionName="OdontoProModel.Store.mostrar_notas_evolucion">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OdontoProModel.mostrar_notas_evolucion_Result">
+          <ScalarProperty Name="nota" ColumnName="nota" />
+          <ScalarProperty Name="fecha_evolucion" ColumnName="fecha_evolucion" />
+          <ScalarProperty Name="tratamiento" ColumnName="tratamiento" />
+          <ScalarProperty Name="diagnostico" ColumnName="diagnostico" />
+          <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="mostrar_pacientes" FunctionName="OdontoProModel.Store.mostrar_pacientes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OdontoProModel.mostrar_pacientes_Result">
+          <ScalarProperty Name="paciente_id" ColumnName="paciente_id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+          <ScalarProperty Name="fecha_nac" ColumnName="fecha_nac" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="edad" ColumnName="edad" />
+          <ScalarProperty Name="numero_de_tratamientos" ColumnName="numero de tratamientos" />
+          <ScalarProperty Name="reservas" ColumnName="reservas" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="mostrar_reservacion" FunctionName="OdontoProModel.Store.mostrar_reservacion">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OdontoProModel.mostrar_reservacion_Result">
+          <ScalarProperty Name="reservacion_id" ColumnName="reservacion_id" />
+          <ScalarProperty Name="fecha_reservacion" ColumnName="fecha_reservacion" />
+          <ScalarProperty Name="paciente_id" ColumnName="paciente_id" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="mostrar_reservaciones" FunctionName="OdontoProModel.Store.mostrar_reservaciones">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OdontoProModel.mostrar_reservaciones_Result">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+          <ScalarProperty Name="fecha_reservacion" ColumnName="fecha_reservacion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="mostrar_tratamientos" FunctionName="OdontoProModel.Store.mostrar_tratamientos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OdontoProModel.mostrar_tratamientos_Result">
+          <ScalarProperty Name="tratamiento" ColumnName="tratamiento" />
+          <ScalarProperty Name="diagnostico" ColumnName="diagnostico" />
+          <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+          <ScalarProperty Name="numero_de_notas_de_evolucion" ColumnName="numero de notas de evolucion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="OdontoProModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="OdontoProModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="OdontoProModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="OdontoProModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OdontoProModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="OdontoProModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OdontoProModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="OdontoProModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="OdontoProModel.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<AppWebb01.Models.reservacion>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.paciente.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.paciente.apellidos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.paciente.ciudad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha_reservacion)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.paciente.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.paciente.apellidos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.paciente.ciudad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fecha_reservacion)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.reservacion_id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.reservacion_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.reservacion_id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+

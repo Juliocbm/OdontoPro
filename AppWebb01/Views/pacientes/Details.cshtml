@@ -1,0 +1,133 @@
+﻿@model AppWebb01.Models.paciente
+
+@{
+    ViewBag.Title = "Detalle de paciente";
+}
+
+@*<h2>Details</h2>
+
+<div>
+    <h4>paciente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.apellidos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.apellidos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ciudad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ciudad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_nac)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_nac)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.edad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.edad)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.paciente_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@
+
+
+<div class="container">
+    <titulo>
+        @ViewBag.Title
+    </titulo>
+
+    <div class="row">
+        <div class="col">
+            @*fotografia*@
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    @*tabla tratamientos*@
+                    <table class="table">
+                        <tr>
+                            <th>Diagnostico</th>
+                            <th>Tratamiento</th>
+                            <th>Observaciones</th>
+                            <th>fecha de inicio</th>
+                        </tr>
+                        <tr>
+                            @foreach (var item in Model.tratamiento)
+                            {
+
+                                <td>@item.diagnostico</td>
+                            }
+
+                        </tr>
+                    </table>
+                </div>
+                <div class="col">
+                    @*reservacion*@
+                </div>
+            </div>
+            <div class="row">
+                @*proceso de tratamiento actual*@
+            </div>
+        </div>
+    </div>
+
+</div>

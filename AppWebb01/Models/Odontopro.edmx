@@ -1,0 +1,614 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OdontoProModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="nota_evolucion">
+          <Key>
+            <PropertyRef Name="nota_evolucion_id" />
+          </Key>
+          <Property Name="nota_evolucion_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nota" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="fecha_evolucion" Type="datetime" />
+          <Property Name="tratamiento_id" Type="int" />
+        </EntityType>
+        <EntityType Name="paciente">
+          <Key>
+            <PropertyRef Name="paciente_id" />
+          </Key>
+          <Property Name="paciente_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellidos" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="80" />
+          <Property Name="estado" Type="varchar" MaxLength="50" />
+          <Property Name="ciudad" Type="varchar" MaxLength="50" />
+          <Property Name="fecha_nac" Type="datetime" />
+          <Property Name="telefono" Type="varchar" MaxLength="10" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="edad" Type="int" />
+        </EntityType>
+        <EntityType Name="reservacion">
+          <Key>
+            <PropertyRef Name="reservacion_id" />
+          </Key>
+          <Property Name="reservacion_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_reservacion" Type="datetime" Nullable="false" />
+          <Property Name="paciente_id" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tratamiento">
+          <Key>
+            <PropertyRef Name="tratamiento_id" />
+          </Key>
+          <Property Name="tratamiento_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="diagnostico" Type="varchar" MaxLength="356" />
+          <Property Name="tratamiento" Type="varchar" MaxLength="356" />
+          <Property Name="observaciones" Type="varchar" MaxLength="356" />
+          <Property Name="fecha_inicio" Type="datetime" />
+          <Property Name="paciente_id" Type="int" />
+        </EntityType>
+        <Association Name="FK__nota_evol__trata__3E52440B">
+          <End Role="tratamiento" Type="Self.tratamiento" Multiplicity="0..1" />
+          <End Role="nota_evolucion" Type="Self.nota_evolucion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tratamiento">
+              <PropertyRef Name="tratamiento_id" />
+            </Principal>
+            <Dependent Role="nota_evolucion">
+              <PropertyRef Name="tratamiento_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__reservaci__pacie__4316F928">
+          <End Role="paciente" Type="Self.paciente" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="reservacion" Type="Self.reservacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paciente">
+              <PropertyRef Name="paciente_id" />
+            </Principal>
+            <Dependent Role="reservacion">
+              <PropertyRef Name="paciente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tratamien__pacie__398D8EEE">
+          <End Role="paciente" Type="Self.paciente" Multiplicity="0..1" />
+          <End Role="tratamiento" Type="Self.tratamiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paciente">
+              <PropertyRef Name="paciente_id" />
+            </Principal>
+            <Dependent Role="tratamiento">
+              <PropertyRef Name="paciente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="insertar_nota_evolucion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nota" Type="varchar" Mode="In" />
+          <Parameter Name="fecha_evolucion" Type="datetime" Mode="In" />
+          <Parameter Name="tratamiento_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insertar_paciente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellidos" Type="varchar" Mode="In" />
+          <Parameter Name="direccion" Type="varchar" Mode="In" />
+          <Parameter Name="estado" Type="varchar" Mode="In" />
+          <Parameter Name="ciudad" Type="varchar" Mode="In" />
+          <Parameter Name="fecha_nac" Type="datetime" Mode="In" />
+          <Parameter Name="telefono" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="edad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insertar_reservacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fecha" Type="datetime" Mode="In" />
+          <Parameter Name="paciente_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insertar_tratamiento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagnostico" Type="varchar" Mode="In" />
+          <Parameter Name="tratamiento" Type="varchar" Mode="In" />
+          <Parameter Name="observaciones" Type="varchar" Mode="In" />
+          <Parameter Name="fecha_inicio" Type="datetime" Mode="In" />
+          <Parameter Name="paciente_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="mostrar_notas_evolucion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tratamiento_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="mostrar_pacientes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="textNombre" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="mostrar_reservacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="paciente_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="mostrar_reservaciones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="mostrar_tratamientos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="paciente_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="OdontoProModelStoreContainer">
+          <EntitySet Name="nota_evolucion" EntityType="Self.nota_evolucion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="paciente" EntityType="Self.paciente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="reservacion" EntityType="Self.reservacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tratamiento" EntityType="Self.tratamiento" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__nota_evol__trata__3E52440B" Association="Self.FK__nota_evol__trata__3E52440B">
+            <End Role="tratamiento" EntitySet="tratamiento" />
+            <End Role="nota_evolucion" EntitySet="nota_evolucion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__reservaci__pacie__4316F928" Association="Self.FK__reservaci__pacie__4316F928">
+            <End Role="paciente" EntitySet="paciente" />
+            <End Role="reservacion" EntitySet="reservacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tratamien__pacie__398D8EEE" Association="Self.FK__tratamien__pacie__398D8EEE">
+            <End Role="paciente" EntitySet="paciente" />
+            <End Role="tratamiento" EntitySet="tratamiento" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OdontoProModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="nota_evolucion">
+          <Key>
+            <PropertyRef Name="nota_evolucion_id" />
+          </Key>
+          <Property Name="nota_evolucion_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nota" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_evolucion" Type="DateTime" Precision="3" />
+          <Property Name="tratamiento_id" Type="Int32" />
+          <NavigationProperty Name="tratamiento" Relationship="Self.FK__nota_evol__trata__3E52440B" FromRole="nota_evolucion" ToRole="tratamiento" />
+        </EntityType>
+        <EntityType Name="paciente">
+          <Key>
+            <PropertyRef Name="paciente_id" />
+          </Key>
+          <Property Name="paciente_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidos" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ciudad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_nac" Type="DateTime" Precision="3" />
+          <Property Name="telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="edad" Type="Int32" />
+          <NavigationProperty Name="reservacion" Relationship="Self.FK__reservaci__pacie__4316F928" FromRole="paciente" ToRole="reservacion" />
+          <NavigationProperty Name="tratamiento" Relationship="Self.FK__tratamien__pacie__398D8EEE" FromRole="paciente" ToRole="tratamiento" />
+        </EntityType>
+        <EntityType Name="reservacion">
+          <Key>
+            <PropertyRef Name="reservacion_id" />
+          </Key>
+          <Property Name="reservacion_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_reservacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="paciente_id" Type="Int32" />
+          <NavigationProperty Name="paciente" Relationship="Self.FK__reservaci__pacie__4316F928" FromRole="reservacion" ToRole="paciente" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tratamiento">
+          <Key>
+            <PropertyRef Name="tratamiento_id" />
+          </Key>
+          <Property Name="tratamiento_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="diagnostico" Type="String" MaxLength="356" FixedLength="false" Unicode="false" />
+          <Property Name="tratamiento1" Type="String" MaxLength="356" FixedLength="false" Unicode="false" />
+          <Property Name="observaciones" Type="String" MaxLength="356" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_inicio" Type="DateTime" Precision="3" />
+          <Property Name="paciente_id" Type="Int32" />
+          <NavigationProperty Name="nota_evolucion" Relationship="Self.FK__nota_evol__trata__3E52440B" FromRole="tratamiento" ToRole="nota_evolucion" />
+          <NavigationProperty Name="paciente" Relationship="Self.FK__tratamien__pacie__398D8EEE" FromRole="tratamiento" ToRole="paciente" />
+        </EntityType>
+        <Association Name="FK__nota_evol__trata__3E52440B">
+          <End Role="tratamiento" Type="Self.tratamiento" Multiplicity="0..1" />
+          <End Role="nota_evolucion" Type="Self.nota_evolucion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tratamiento">
+              <PropertyRef Name="tratamiento_id" />
+            </Principal>
+            <Dependent Role="nota_evolucion">
+              <PropertyRef Name="tratamiento_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__reservaci__pacie__4316F928">
+          <End Role="paciente" Type="Self.paciente" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="reservacion" Type="Self.reservacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paciente">
+              <PropertyRef Name="paciente_id" />
+            </Principal>
+            <Dependent Role="reservacion">
+              <PropertyRef Name="paciente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tratamien__pacie__398D8EEE">
+          <End Role="paciente" Type="Self.paciente" Multiplicity="0..1" />
+          <End Role="tratamiento" Type="Self.tratamiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paciente">
+              <PropertyRef Name="paciente_id" />
+            </Principal>
+            <Dependent Role="tratamiento">
+              <PropertyRef Name="paciente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OdontoProEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="nota_evolucion" EntityType="Self.nota_evolucion" />
+          <EntitySet Name="paciente" EntityType="Self.paciente" />
+          <EntitySet Name="reservacion" EntityType="Self.reservacion" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="tratamiento" EntityType="Self.tratamiento" />
+          <AssociationSet Name="FK__nota_evol__trata__3E52440B" Association="Self.FK__nota_evol__trata__3E52440B">
+            <End Role="tratamiento" EntitySet="tratamiento" />
+            <End Role="nota_evolucion" EntitySet="nota_evolucion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__reservaci__pacie__4316F928" Association="Self.FK__reservaci__pacie__4316F928">
+            <End Role="paciente" EntitySet="paciente" />
+            <End Role="reservacion" EntitySet="reservacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tratamien__pacie__398D8EEE" Association="Self.FK__tratamien__pacie__398D8EEE">
+            <End Role="paciente" EntitySet="paciente" />
+            <End Role="tratamiento" EntitySet="tratamiento" />
+          </AssociationSet>
+          <FunctionImport Name="insertar_nota_evolucion">
+            <Parameter Name="nota" Mode="In" Type="String" />
+            <Parameter Name="fecha_evolucion" Mode="In" Type="DateTime" />
+            <Parameter Name="tratamiento_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertar_paciente">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellidos" Mode="In" Type="String" />
+            <Parameter Name="direccion" Mode="In" Type="String" />
+            <Parameter Name="estado" Mode="In" Type="String" />
+            <Parameter Name="ciudad" Mode="In" Type="String" />
+            <Parameter Name="fecha_nac" Mode="In" Type="DateTime" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="edad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertar_reservacion">
+            <Parameter Name="fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="paciente_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertar_tratamiento">
+            <Parameter Name="diagnostico" Mode="In" Type="String" />
+            <Parameter Name="tratamiento" Mode="In" Type="String" />
+            <Parameter Name="observaciones" Mode="In" Type="String" />
+            <Parameter Name="fecha_inicio" Mode="In" Type="DateTime" />
+            <Parameter Name="paciente_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="mostrar_notas_evolucion" ReturnType="Collection(OdontoProModel.mostrar_notas_evolucion_Result)">
+            <Parameter Name="tratamiento_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="mostrar_pacientes" ReturnType="Collection(OdontoProModel.mostrar_pacientes_Result)">
+            <Parameter Name="textNombre" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="mostrar_reservacion" ReturnType="Collection(OdontoProModel.mostrar_reservacion_Result)">
+            <Parameter Name="paciente_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="mostrar_reservaciones" ReturnType="Collection(OdontoProModel.mostrar_reservaciones_Result)" />
+          <FunctionImport Name="mostrar_tratamientos" ReturnType="Collection(OdontoProModel.mostrar_tratamientos_Result)">
+            <Parameter Name="paciente_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(OdontoProModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(OdontoProModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="mostrar_notas_evolucion_Result">
+          <Property Type="String" Name="nota" Nullable="false" MaxLength="500" />
+          <Property Type="DateTime" Name="fecha_evolucion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="tratamiento" Nullable="true" MaxLength="356" />
+          <Property Type="String" Name="diagnostico" Nullable="true" MaxLength="356" />
+          <Property Type="String" Name="observaciones" Nullable="true" MaxLength="356" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellidos" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ciudad" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="mostrar_pacientes_Result">
+          <Property Type="Int32" Name="paciente_id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellidos" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="direccion" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="estado" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ciudad" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="fecha_nac" Nullable="true" Precision="23" />
+          <Property Type="String" Name="telefono" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="edad" Nullable="true" />
+          <Property Type="Int32" Name="numero_de_tratamientos" Nullable="false" />
+          <Property Type="Int32" Name="reservas" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="mostrar_reservacion_Result">
+          <Property Type="Int32" Name="reservacion_id" Nullable="false" />
+          <Property Type="DateTime" Name="fecha_reservacion" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="paciente_id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="mostrar_reservaciones_Result">
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellidos" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ciudad" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="fecha_reservacion" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="mostrar_tratamientos_Result">
+          <Property Type="String" Name="tratamiento" Nullable="true" MaxLength="356" />
+          <Property Type="String" Name="diagnostico" Nullable="true" MaxLength="356" />
+          <Property Type="String" Name="observaciones" Nullable="true" MaxLength="356" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellidos" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ciudad" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="numero_de_notas_de_evolucion" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OdontoProModelStoreContainer" CdmEntityContainer="OdontoProEntities">
+          <EntitySetMapping Name="nota_evolucion">
+            <EntityTypeMapping TypeName="OdontoProModel.nota_evolucion">
+              <MappingFragment StoreEntitySet="nota_evolucion">
+                <ScalarProperty Name="nota_evolucion_id" ColumnName="nota_evolucion_id" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
+                <ScalarProperty Name="fecha_evolucion" ColumnName="fecha_evolucion" />
+                <ScalarProperty Name="tratamiento_id" ColumnName="tratamiento_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="paciente">
+            <EntityTypeMapping TypeName="OdontoProModel.paciente">
+              <MappingFragment StoreEntitySet="paciente">
+                <ScalarProperty Name="paciente_id" ColumnName="paciente_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="fecha_nac" ColumnName="fecha_nac" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reservacion">
+            <EntityTypeMapping TypeName="OdontoProModel.reservacion">
+              <MappingFragment StoreEntitySet="reservacion">
+                <ScalarProperty Name="reservacion_id" ColumnName="reservacion_id" />
+                <ScalarProperty Name="fecha_reservacion" ColumnName="fecha_reservacion" />
+                <ScalarProperty Name="paciente_id" ColumnName="paciente_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="OdontoProModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tratamiento">
+            <EntityTypeMapping TypeName="OdontoProModel.tratamiento">
+              <MappingFragment StoreEntitySet="tratamiento">
+                <ScalarProperty Name="tratamiento_id" ColumnName="tratamiento_id" />
+                <ScalarProperty Name="diagnostico" ColumnName="diagnostico" />
+                <ScalarProperty Name="tratamiento1" ColumnName="tratamiento" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+                <ScalarProperty Name="paciente_id" ColumnName="paciente_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="insertar_nota_evolucion" FunctionName="OdontoProModel.Store.insertar_nota_evolucion" />
+          <FunctionImportMapping FunctionImportName="insertar_paciente" FunctionName="OdontoProModel.Store.insertar_paciente" />
+          <FunctionImportMapping FunctionImportName="insertar_reservacion" FunctionName="OdontoProModel.Store.insertar_reservacion" />
+          <FunctionImportMapping FunctionImportName="insertar_tratamiento" FunctionName="OdontoProModel.Store.insertar_tratamiento" />
+          <FunctionImportMapping FunctionImportName="mostrar_notas_evolucion" FunctionName="OdontoProModel.Store.mostrar_notas_evolucion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OdontoProModel.mostrar_notas_evolucion_Result">
+                <ScalarProperty Name="nota" ColumnName="nota" />
+                <ScalarProperty Name="fecha_evolucion" ColumnName="fecha_evolucion" />
+                <ScalarProperty Name="tratamiento" ColumnName="tratamiento" />
+                <ScalarProperty Name="diagnostico" ColumnName="diagnostico" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="mostrar_pacientes" FunctionName="OdontoProModel.Store.mostrar_pacientes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OdontoProModel.mostrar_pacientes_Result">
+                <ScalarProperty Name="paciente_id" ColumnName="paciente_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="fecha_nac" ColumnName="fecha_nac" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+                <ScalarProperty Name="numero_de_tratamientos" ColumnName="numero de tratamientos" />
+                <ScalarProperty Name="reservas" ColumnName="reservas" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="mostrar_reservacion" FunctionName="OdontoProModel.Store.mostrar_reservacion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OdontoProModel.mostrar_reservacion_Result">
+                <ScalarProperty Name="reservacion_id" ColumnName="reservacion_id" />
+                <ScalarProperty Name="fecha_reservacion" ColumnName="fecha_reservacion" />
+                <ScalarProperty Name="paciente_id" ColumnName="paciente_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="mostrar_reservaciones" FunctionName="OdontoProModel.Store.mostrar_reservaciones">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OdontoProModel.mostrar_reservaciones_Result">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="fecha_reservacion" ColumnName="fecha_reservacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="mostrar_tratamientos" FunctionName="OdontoProModel.Store.mostrar_tratamientos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OdontoProModel.mostrar_tratamientos_Result">
+                <ScalarProperty Name="tratamiento" ColumnName="tratamiento" />
+                <ScalarProperty Name="diagnostico" ColumnName="diagnostico" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="numero_de_notas_de_evolucion" ColumnName="numero de notas de evolucion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="OdontoProModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="OdontoProModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="OdontoProModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="OdontoProModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OdontoProModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="OdontoProModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OdontoProModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="OdontoProModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="OdontoProModel.Store.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

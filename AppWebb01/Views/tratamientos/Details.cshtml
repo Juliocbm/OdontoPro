@@ -1,0 +1,58 @@
+﻿@model AppWebb01.Models.tratamiento
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tratamiento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.diagnostico)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.diagnostico)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tratamiento1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tratamiento1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.observaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.observaciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_inicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_inicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.paciente.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.paciente.nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.tratamiento_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

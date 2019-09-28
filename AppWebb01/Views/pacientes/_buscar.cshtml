@@ -1,0 +1,141 @@
+﻿@model IEnumerable<AppWebb01.Models.mostrar_pacientes_Result>
+
+
+<table class="table" id="resultado">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.nombre)*@
+            Nombres
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.apellidos)*@
+            Apellidos
+        </th>
+ 
+        <th>
+            @*@Html.DisplayNameFor(model => model.estado)*@
+            Estado
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.ciudad)*@
+            Ciudad
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.fecha_nac)*@
+            Fecha de nacimiento
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.telefono)*@
+            Telefono
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.email)*@
+            Correo electronico
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.edad)*@
+            Edad
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.edad)*@
+            Tratamientos
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.nombre)*@
+                @Ajax.ActionLink(item.nombre, "Details", new { id=item.paciente_id } ,new AjaxOptions() {
+                    HttpMethod = "GET"
+                })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.apellidos)
+            </td>
+        
+            <td>
+                @Html.DisplayFor(modelItem => item.estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ciudad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fecha_nac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.edad)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.numero_de_tratamientos)
+
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.paciente_id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.paciente_id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.paciente_id }) |
+                    @if (item.reservacion.Count > 0)
+                    {
+                        @Html.ActionLink("ver reservacion", "Mostrar_reserva", new { id = item.paciente_id })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Nueva reservacion", "CreateReserva", new { id = item.paciente_id })
+                    }*@
+
+                <div class="dropdown">
+                    <button style="background-color:transparent" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-option-vertical"></span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <div style="margin:5px" class="dropdown-item">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.paciente_id }, new { style = "color:rgba(90, 90, 90, 1)" })
+                        </div>
+                        <div style="margin:5px" class="dropdown-item">
+                            <span class="glyphicon glyphicon-exclamation-sign"></span>
+                            @Html.ActionLink("Detalles", "Details", new { id = item.paciente_id }, new { style = "color:rgba(90, 90, 90, 1)" })
+                        </div>
+                        <div style="margin:5px" class="dropdown-item">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.paciente_id }, new { style = "color:rgba(90, 90, 90, 1)" })
+                        </div>
+
+                        @if (item.reservas > 0)
+                        {
+
+                            <div style="margin:5px" class="dropdown-item">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                @Html.ActionLink("Ver reservacion", "Mostrar_reserva", new { id = item.paciente_id }, new { style = "color:rgba(90, 90, 90, 1)" })
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div style="margin:5px" class="dropdown-item">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                @Html.ActionLink("Nueva reservacion", "CreateReserva", new { id = item.paciente_id }, new { style = "color:rgba(90, 90, 90, 1)" })
+                            </div>
+                        }
+
+                        <div style="margin:5px" class="dropdown-item">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            @Html.ActionLink("Nuevo tratamiento", "CreateTratamiento", new { id = item.paciente_id }, new { style = "color:rgba(90, 90, 90, 1)" })
+                        </div>
+                    </div>
+
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>
